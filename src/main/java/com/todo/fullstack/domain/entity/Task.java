@@ -1,5 +1,7 @@
 package com.todo.fullstack.domain.entity;
 
+import com.todo.fullstack.domain.dto.RegisterDataDTO;
+import com.todo.fullstack.domain.dto.UpdateTaskDataDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -21,8 +23,35 @@ public class Task {
 
     private String description;
 
-    private String status;
+    private Status status;
 
-    private String userId;
+    private Long userId;
+
+    public Task(RegisterDataDTO data) {
+        this.title = data.title();
+        this.description = data.description();
+        this.status = data.status();
+        this.userId = data.userId();
+    }
+
+    public void updateData(UpdateTaskDataDTO data) {
+
+        if (data.title() != null){
+            this.title = data.title();
+        }
+
+        if (data.description() != null){
+            this.description = data.description();
+        }
+
+        if (data.status() != null){
+            this.status = data.status();
+        }
+
+        if (data.userId() != null){
+            this.userId = data.userId();
+        }
+
+    }
 }
 
