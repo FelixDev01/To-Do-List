@@ -3,8 +3,12 @@ package com.todo.fullstack.domain.dto.task;
 import com.todo.fullstack.domain.entity.Status;
 import com.todo.fullstack.domain.entity.Task;
 
-public record TaskListDTO(Long id, String title, Status status, Long userId) {
+public record TaskListDTO(
+        Long id,
+        String title,
+        Status status,
+        Long userId) {
     public TaskListDTO(Task task){
-        this(task.getId(), task.getTitle(), task.getStatus(), task.getUserId());
+        this(task.getId(), task.getTitle(), task.getStatus(), task.getUser().getId());
     }
 }

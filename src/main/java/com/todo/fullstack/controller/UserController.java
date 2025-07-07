@@ -1,17 +1,12 @@
 package com.todo.fullstack.controller;
 
-import com.todo.fullstack.domain.dto.task.DetailmentTaskDTO;
-import com.todo.fullstack.domain.dto.task.RegisterDataTaksDTO;
-import com.todo.fullstack.domain.dto.task.TaskListDTO;
-import com.todo.fullstack.domain.dto.task.UpdateTaskDataDTO;
 import com.todo.fullstack.domain.dto.user.DetailmentUserDTO;
 import com.todo.fullstack.domain.dto.user.RegisterDataUserDTO;
 import com.todo.fullstack.domain.dto.user.UpdateUserDataDTO;
 import com.todo.fullstack.domain.dto.user.UserListDTO;
-import com.todo.fullstack.domain.entity.Task;
 import com.todo.fullstack.domain.entity.User;
-import com.todo.fullstack.domain.repository.TaskRepository;
 import com.todo.fullstack.domain.repository.UserRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +24,7 @@ public class UserController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<DetailmentUserDTO> register(@RequestBody RegisterDataUserDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<DetailmentUserDTO> register(@Valid @RequestBody RegisterDataUserDTO data, UriComponentsBuilder uriBuilder){
         var user = new User(data);
         repository.save(user);
         var uri = uriBuilder.path("/tasks/{id}").buildAndExpand(user.getId()).toUri();

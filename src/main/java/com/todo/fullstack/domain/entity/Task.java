@@ -1,6 +1,6 @@
 package com.todo.fullstack.domain.entity;
 
-import com.todo.fullstack.domain.dto.task.RegisterDataTaksDTO;
+import com.todo.fullstack.domain.dto.task.RegisterDataTaskDTO;
 import com.todo.fullstack.domain.dto.task.UpdateTaskDataDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,15 +23,18 @@ public class Task {
 
     private String description;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;  //private Long userId;
 
-    public Task(RegisterDataTaksDTO data) {
+    public Task(RegisterDataTaskDTO data, User user) {
         this.title = data.title();
         this.description = data.description();
         this.status = data.status();
-        this.userId = data.userId();
+        this.user = user;
     }
 
     public void updateData(UpdateTaskDataDTO data) {
@@ -47,11 +50,6 @@ public class Task {
         if (data.status() != null){
             this.status = data.status();
         }
-
-        if (data.userId() != null){
-            this.userId = data.userId();
-        }
-
     }
 }
 

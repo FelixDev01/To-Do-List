@@ -1,6 +1,5 @@
 package com.todo.fullstack.domain.entity;
 
-import com.todo.fullstack.domain.dto.task.RegisterDataTaksDTO;
 import com.todo.fullstack.domain.dto.user.RegisterDataUserDTO;
 import com.todo.fullstack.domain.dto.user.UpdateUserDataDTO;
 import jakarta.persistence.*;
