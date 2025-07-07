@@ -1,4 +1,4 @@
-package com.todo.fullstack.domain.dto;
+package com.todo.fullstack.domain.dto.task;
 
 import com.todo.fullstack.domain.entity.Status;
 import com.todo.fullstack.domain.entity.Task;
