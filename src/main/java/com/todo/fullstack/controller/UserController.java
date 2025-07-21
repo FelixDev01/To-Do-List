@@ -1,6 +1,8 @@
 package com.todo.fullstack.controller;
 
+import com.todo.fullstack.config.TokenService;
 import com.todo.fullstack.domain.dto.user.RegisterDataUserDTO;
+import com.todo.fullstack.domain.dto.user.TokenJWTDataDTO;
 import com.todo.fullstack.domain.entity.User;
 import com.todo.fullstack.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class UserController {
 
     @Autowired
     private AuthenticationManager manager;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Autowired
     private UserRepository userRepository;
@@ -39,7 +44,10 @@ public class UserController {
     public ResponseEntity login(@RequestBody RegisterDataUserDTO dados){
         var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
         var authentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        var codeToken = tokenService.gerarToken((User) authentication.getPrincipal());
+
+
+        return ResponseEntity.ok(new TokenJWTDataDTO(codeToken));
     }
 
 }
